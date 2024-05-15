@@ -48,6 +48,10 @@ def encode_base64():
     message = entry.get()
     encoded_message = custom_base64_encode(message)
     result_label.config(text="Encoded Message: " + encoded_message)
-    
-   
+
+
+def decode_base64():
+    encoded_message = entry.get()
+    decoded_message = custom_base64_decode(encoded_message)
+    result_label.config(text="Decoded Message: " + decoded_message)
 
