@@ -8,3 +8,8 @@ def custom_base64_encode(message):
     ascii_values = [ord(char) for char in message]
 
     binary_strings = ['{:08b}'.format(ascii_val) for ascii_val in ascii_values]
+
+    binary_message = ''.join(binary_strings)
+
+    while len(binary_message) % 6 != 0:
+        binary_message += '0'
