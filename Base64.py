@@ -55,3 +55,6 @@ def decode_base64():
     decoded_message = custom_base64_decode(encoded_message)
     result_label.config(text="Decoded Message: " + decoded_message)
 
+# GUI setup
+root = tk.Tk()
+root.title("Base64 Encoder/Decoder")
