@@ -9,6 +9,7 @@ def custom_base64_encode(message):
 
     binary_strings = ['{:08b}'.format(ascii_val) for ascii_val in ascii_values]
 
+    #Kombinimi i stringjeve binary ne nje string te vetem
     binary_message = ''.join(binary_strings)
 
     while len(binary_message) % 6 != 0:
