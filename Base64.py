@@ -14,3 +14,8 @@ def custom_base64_encode(message):
 
     while len(binary_message) % 6 != 0:
         binary_message += '0'
+
+    for i in range(0, len(binary_message), 6):
+        chunk = binary_message[i:i + 6]
+        decimal_value = int(chunk, 2)
+        encoded_chars.append(base64_chars[decimal_value])
