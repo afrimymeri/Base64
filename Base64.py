@@ -43,6 +43,7 @@ def custom_base64_decode(encoded_message):
         decoded_chars.append(chr(int(chunk, 2)))
 
     return ''.join(decoded_chars)
+
 def encode_base64():
     message = entry.get()
     encoded_message = custom_base64_encode(message)
