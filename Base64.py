@@ -71,9 +71,11 @@ root.geometry('%dx%d+%d+%d' % (window_width, window_height, x_coordinate, y_coor
 entry = tk.Entry(root, width=40)
 entry.pack(pady=10)
 
+#Encode button
 encode_button = tk.Button(root, text="Encode", width=20, height=2, command=encode_base64)
 encode_button.pack()
 
+#Decode button
 decode_button = tk.Button(root, text="Decode", width=20, height=2, command=decode_base64)
 decode_button.pack()
 
