@@ -67,3 +67,6 @@ screen_height = root.winfo_screenheight()
 x_coordinate = (screen_width / 2) - (window_width / 2)
 y_coordinate = (screen_height / 2) - (window_height / 2)
 root.geometry('%dx%d+%d+%d' % (window_width, window_height, x_coordinate, y_coordinate))
+
+entry = tk.Entry(root, width=40)
+entry.pack(pady=10)
