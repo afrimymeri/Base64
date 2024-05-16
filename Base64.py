@@ -68,6 +68,7 @@ x_coordinate = (screen_width / 2) - (window_width / 2)
 y_coordinate = (screen_height / 2) - (window_height / 2)
 root.geometry('%dx%d+%d+%d' % (window_width, window_height, x_coordinate, y_coordinate))
 
+#Input field
 entry = tk.Entry(root, width=40)
 entry.pack(pady=10)
 
@@ -79,6 +80,7 @@ encode_button.pack()
 decode_button = tk.Button(root, text="Decode", width=20, height=2, command=decode_base64)
 decode_button.pack()
 
+#Result label
 result_label = tk.Label(root, text="", justify='center')
 result_label.pack(pady=10)
 
