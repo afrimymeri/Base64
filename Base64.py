@@ -4,12 +4,11 @@ def custom_base64_encode(message):
     base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
     encoded_chars = []
 
-    #Konvertimi i karaktereve te mesazhit ne ASCII
+    # Konvertimi i karaktereve të mesazhit në ASCII
     ascii_values = [ord(char) for char in message]
-
     binary_strings = ['{:08b}'.format(ascii_val) for ascii_val in ascii_values]
 
-    #Kombinimi i stringjeve binary ne nje string te vetem
+    # Kombinimi i stringjeve binare në një string të vetëm
     binary_message = ''.join(binary_strings)
 
     while len(binary_message) % 6 != 0:
@@ -20,9 +19,10 @@ def custom_base64_encode(message):
         decimal_value = int(chunk, 2)
         encoded_chars.append(base64_chars[decimal_value])
 
-        padding_length = len(binary_message) % 24
+    # Shto padding në fund nëse është e nevojshme
+    padding_length = len(encoded_chars) % 4
     if padding_length != 0:
-        encoded_chars.extend(['='] * (4 - padding_length // 6))
+        encoded_chars.extend(['='] * (4 - padding_length))
 
     return ''.join(encoded_chars)
 
@@ -30,30 +30,53 @@ def custom_base64_decode(encoded_message):
     base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
     decoded_chars = []
 
-    encoded_message = encoded_message.rstrip('=')
+    try:
+        encoded_message = encoded_message.rstrip('=')
+        binary_message = ''
+        for char in encoded_message:
+            if char in base64_chars:
+                decimal_value = base64_chars.index(char)
+                binary_message += '{:06b}'.format(decimal_value)
+            else:
+                raise ValueError("Invalid character in encoded message")
 
-    binary_message = ''
-    for char in encoded_message:
-        if char in base64_chars:
-            decimal_value = base64_chars.index(char)
-            binary_message += '{:06b}'.format(decimal_value)
+        # Hiq bitët shtesë në fund
+        while len(binary_message) % 8 != 0:
+            binary_message = binary_message[:-1]
 
-    for i in range(0, len(binary_message), 8):
-        chunk = binary_message[i:i + 8]
-        decoded_chars.append(chr(int(chunk, 2)))
+        for i in range(0, len(binary_message), 8):
+            chunk = binary_message[i:i + 8]
+            if len(chunk) == 8:
+                decoded_chars.append(chr(int(chunk, 2)))
 
-    return ''.join(decoded_chars)
-
+        return ''.join(decoded_chars)
+    except ValueError as ve:
+        result_label.config(text=f"Error: {ve}")
+        return ""
+    except Exception as e:
+        result_label.config(text="Error: Invalid input for decoding.")
+        return ""
 def encode_base64():
     message = entry.get()
-    encoded_message = custom_base64_encode(message)
-    result_label.config(text="Encoded Message: " + encoded_message)
-
+    
+    if all(ord(char) < 128 for char in message):
+        if message:
+            encoded_message = custom_base64_encode(message)
+            if encoded_message:
+                result_label.config(text="Encoded Message: " + encoded_message)
+        else:
+            result_label.config(text="Error: No input provided.")
+    else:
+        result_label.config(text="Error: Input contains non-ASCII characters.")
 
 def decode_base64():
     encoded_message = entry.get()
-    decoded_message = custom_base64_decode(encoded_message)
-    result_label.config(text="Decoded Message: " + decoded_message)
+    if encoded_message:
+        decoded_message = custom_base64_decode(encoded_message)
+        if decoded_message:
+            result_label.config(text="Decoded Message: " + decoded_message)
+    else:
+        result_label.config(text="Error: No input provided.")
 
 # GUI setup
 root = tk.Tk()
@@ -68,19 +91,19 @@ x_coordinate = (screen_width / 2) - (window_width / 2)
 y_coordinate = (screen_height / 2) - (window_height / 2)
 root.geometry('%dx%d+%d+%d' % (window_width, window_height, x_coordinate, y_coordinate))
 
-#Input field
+# Fusha e hyrjes
 entry = tk.Entry(root, width=40)
 entry.pack(pady=10)
 
-#Encode button
+# Butoni Encode
 encode_button = tk.Button(root, text="Encode", width=20, height=2, command=encode_base64)
 encode_button.pack()
 
-#Decode button
+# Butoni Decode
 decode_button = tk.Button(root, text="Decode", width=20, height=2, command=decode_base64)
 decode_button.pack()
 
-#Result label
+# Etiketa e rezultatit
 result_label = tk.Label(root, text="", justify='center')
 result_label.pack(pady=10)
 
