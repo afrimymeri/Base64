@@ -5,10 +5,10 @@ This project is a simple Base64 encoder and decoder implemented using Python and
 This project was completed by sophomore students from the Faculty of Electrical and Computer Engineering at the University of "Hasan Prishtina", under the expert guidance of Prof. Dr. Blerim Rexha and Ass. Mërgim Hoti, as part of our coursework in Data Security.
 
 ## Authors
-- Adrian Mehaj
-- Ag Hamiti
-- Afrim Ymeri
-- Adna Aslani
+- [Adrian Mehaj](https://github.com/adrianmehaj)
+- [Ag Hamiti](https://github.com/aghamiti)
+- [Afrim Ymeri](https://github.com/afrimymeri)
+- [Adna Aslani](https://github.com/adnaslani)
 
 ## Requirements
 - Python 3.9 or later
