@@ -51,10 +51,12 @@ def custom_base64_decode(encoded_message):
 
         return ''.join(decoded_chars)
     except ValueError as ve:
-        result_label.config(text=f"Error: {ve}")
+        result_text.delete(1.0, tk.END)
+        result_text.insert(tk.END, f"Error: {ve}")
         return ""
     except Exception as e:
-        result_label.config(text="Error: Invalid input for decoding.")
+        result_text.delete(1.0, tk.END)
+        result_text.insert(tk.END, "Error: Invalid input for decoding")
         return ""
 def encode_base64():
     message = entry.get()
@@ -63,20 +65,25 @@ def encode_base64():
         if message:
             encoded_message = custom_base64_encode(message)
             if encoded_message:
-                result_label.config(text="Encoded Message: " + encoded_message)
+                result_text.delete(1.0, tk.END)
+                result_text.insert(tk.END, "Encoded Message: " + encoded_message)
         else:
-            result_label.config(text="Error: No input provided.")
+            result_text.delete(1.0, tk.END)
+            result_text.insert(tk.END, "Error no input provided")
     else:
-        result_label.config(text="Error: Input contains non-ASCII characters.")
+        result_text.delete(1.0, tk.END)
+        result_text.insert(tk.END, "Error: Input contains non-ASII characters.")
 
 def decode_base64():
     encoded_message = entry.get()
     if encoded_message:
         decoded_message = custom_base64_decode(encoded_message)
         if decoded_message:
-            result_label.config(text="Decoded Message: " + decoded_message)
+            result_text.delete(1.0, tk.END)
+            result_text.insert(tk.END, "Decoded message: " + decoded_message)
     else:
-        result_label.config(text="Error: No input provided.")
+        result_text.delete(1.0, tk.END)
+        result_text.insert(tk.END, "Error: No input provided.")
 
 # GUI setup
 root = tk.Tk()
@@ -104,7 +111,8 @@ decode_button = tk.Button(root, text="Decode", width=20, height=2, command=decod
 decode_button.pack()
 
 # Etiketa e rezultatit
-result_label = tk.Label(root, text="", justify='center')
-result_label.pack(pady=10)
+result_text = tk.Text(root, height=4, wrap=tk.WORD)
+result_text.pack(pady=10)
+result_text.config(state=tk.NORMAL)
 
 root.mainloop()
