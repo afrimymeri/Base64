@@ -65,7 +65,7 @@ def encode_base64():
             result_text.insert(tk.END, "Encoded Message: " + encoded_message)
         else:
             result_text.delete(1.0, tk.END)
-            result_text.insert(tk.END, "Error: Invalid character in decoded message.")
+            result_text.insert(tk.END, "Error: Invalid character in encoded message.")
     else:
         result_text.delete(1.0, tk.END)
         result_text.insert(tk.END, "Error: Input contains non-ASII characters.")
