@@ -74,6 +74,7 @@ def encode_base64():
             result_text.insert(tk.END, "Encoded Message: " + encoded_message)
         else:
             result_text.delete(1.0, tk.END)
+            #Shtimi i Error mesazhit ne encode
             result_text.insert(tk.END, "Error: Invalid character in encoded message.")
     else:
         result_text.delete(1.0, tk.END)
@@ -90,6 +91,7 @@ def decode_base64():
             result_text.insert(tk.END, "Decoded message: " + decoded_message)
         else:
             result_text.delete(1.0, tk.END)
+            #Shtimi i Error mesazhit ne encode
             result_text.insert(tk.END, "Error: Invalid character in decoded message.")
     else:
         result_text.delete(1.0, tk.END)
