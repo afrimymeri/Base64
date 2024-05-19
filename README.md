@@ -74,7 +74,7 @@ The Tkinter GUI includes:
    Decoded Message: "Hello World"
    
 ## Notes
-- The script handles all characters that can be entered in the input field, including letters (A-Z, a-z), numbers (0-9), and special characters.
+- The script handles 64 characters that can be entered in the input field, including letters (A-Z, a-z), numbers (0-9), and special characters +/.
 - Error handling is in place for invalid inputs.
   
 ## Expected Outcomes
