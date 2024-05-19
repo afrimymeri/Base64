@@ -1,4 +1,6 @@
-import tkinter as tk
+import tkinter as tk # Importimi i modulit tkinter për ndërfaqen grafike të përdoruesit (GUI)
+
+# Funksioni për të koduar një mesazh në custom base64
 def custom_base64_encode(message):
     base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
     encoded_chars = []
@@ -10,9 +12,11 @@ def custom_base64_encode(message):
     # Kombinimi i stringjeve binare në një string të vetëm
     binary_message = ''.join(binary_strings)
 
+    # Shtimi i mbushjes nëse është e nevojshme për të bërë gjatësinë një multipel të 6
     while len(binary_message) % 6 != 0:
         binary_message += '0'
 
+    # Konvertimi i binarit në base64
     for i in range(0, len(binary_message), 6):
         chunk = binary_message[i:i + 6]
         decimal_value = int(chunk, 2)
@@ -25,7 +29,7 @@ def custom_base64_encode(message):
 
     return ''.join(encoded_chars)
 
-
+# Funksioni për të dekoduar një mesazh nga base64
 def custom_base64_decode(encoded_message):
     base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
     decoded_chars = []
@@ -59,6 +63,7 @@ def custom_base64_decode(encoded_message):
         result_text.insert(tk.END, "Error: Invalid input for decoding!")
         return ""
     
+# Funksioni për të koduar mesazhin e hyrjes
 def encode_base64():
     message = entry.get()
     
@@ -74,6 +79,7 @@ def encode_base64():
         result_text.delete(1.0, tk.END)
         result_text.insert(tk.END, "Error: Input contains non-ASCII characters.")
 
+# Funksioni për të dekoduar mesazhin e hyrjes
 def decode_base64():
     message = entry.get()
 
