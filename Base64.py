@@ -3,8 +3,11 @@ def custom_base64_encode(message):
     base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
     encoded_chars = []
 
+    # Konvertimi i karaktereve të mesazhit në ASCII
     ascii_values = [ord(char) for char in message if char in base64_chars]
     binary_strings = ['{:08b}'.format(ascii_val) for ascii_val in ascii_values]
+
+    # Kombinimi i stringjeve binare në një string të vetëm
     binary_message = ''.join(binary_strings)
 
     while len(binary_message) % 6 != 0:
@@ -15,6 +18,7 @@ def custom_base64_encode(message):
         decimal_value = int(chunk, 2)
         encoded_chars.append(base64_chars[decimal_value])
 
+    # Shto padding në fund nëse është e nevojshme
     padding_length = len(encoded_chars) % 4
     if padding_length != 0:
         encoded_chars.extend(['='] * (4 - padding_length))
