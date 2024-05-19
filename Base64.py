@@ -1,14 +1,10 @@
 import tkinter as tk
-
 def custom_base64_encode(message):
     base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
     encoded_chars = []
 
-    # Konvertimi i karaktereve të mesazhit në ASCII
-    ascii_values = [ord(char) for char in message]
+    ascii_values = [ord(char) for char in message if char in base64_chars]
     binary_strings = ['{:08b}'.format(ascii_val) for ascii_val in ascii_values]
-
-    # Kombinimi i stringjeve binare në një string të vetëm
     binary_message = ''.join(binary_strings)
 
     while len(binary_message) % 6 != 0:
@@ -19,12 +15,12 @@ def custom_base64_encode(message):
         decimal_value = int(chunk, 2)
         encoded_chars.append(base64_chars[decimal_value])
 
-    # Shto padding në fund nëse është e nevojshme
     padding_length = len(encoded_chars) % 4
     if padding_length != 0:
         encoded_chars.extend(['='] * (4 - padding_length))
 
     return ''.join(encoded_chars)
+
 
 def custom_base64_decode(encoded_message):
     base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
@@ -56,34 +52,39 @@ def custom_base64_decode(encoded_message):
         return ""
     except Exception as e:
         result_text.delete(1.0, tk.END)
-        result_text.insert(tk.END, "Error: Invalid input for decoding")
+        result_text.insert(tk.END, "Error: Invalid input for decoding!")
         return ""
+    
 def encode_base64():
     message = entry.get()
     
+    encoded_message = custom_base64_encode(message)
     if all(ord(char) < 128 for char in message):
-        if message:
-            encoded_message = custom_base64_encode(message)
-            if encoded_message:
-                result_text.delete(1.0, tk.END)
-                result_text.insert(tk.END, "Encoded Message: " + encoded_message)
+        if encoded_message:
+            result_text.delete(1.0, tk.END)
+            result_text.insert(tk.END, "Encoded Message: " + encoded_message)
         else:
             result_text.delete(1.0, tk.END)
-            result_text.insert(tk.END, "Error no input provided")
+            result_text.insert(tk.END, "Error: Invalid character in decoded message.")
     else:
         result_text.delete(1.0, tk.END)
         result_text.insert(tk.END, "Error: Input contains non-ASII characters.")
 
 def decode_base64():
-    encoded_message = entry.get()
-    if encoded_message:
-        decoded_message = custom_base64_decode(encoded_message)
+    message = entry.get()
+
+    decoded_message = custom_base64_decode(message)
+    if all(ord(char) < 128 for char in message):
         if decoded_message:
             result_text.delete(1.0, tk.END)
             result_text.insert(tk.END, "Decoded message: " + decoded_message)
+        else:
+            result_text.delete(1.0, tk.END)
+            result_text.insert(tk.END, "Error: Invalid character in decoded message.")
     else:
         result_text.delete(1.0, tk.END)
-        result_text.insert(tk.END, "Error: No input provided.")
+        result_text.insert(tk.END, "Error: Input contains non-ASII characters.")
+
 
 # GUI setup
 root = tk.Tk()
